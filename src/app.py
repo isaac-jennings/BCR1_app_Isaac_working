@@ -22,15 +22,15 @@ from IPython.display import HTML
 from dash import Dash, dcc, html, Input, Output, dash_table
 from dash.exceptions import PreventUpdate
 
-id_combinedactions = glob.glob("D:/ARI_BCR_ALL/Scenarios/HalveSedimentbudget/Dashboard_items/CA_img/*.jpg")
+id_combinedactions = glob.glob("CA_img/*.jpg")
 id_combinedactions = [x[:-4] for x in id_combinedactions]
-id_hillslope = glob.glob("D:/ARI_BCR_ALL/Scenarios/HalveSedimentbudget/Dashboard_items/Hillslope_img/*.jpg")
+id_hillslope = glob.glob("Hillslope_img/*.jpg")
 id_hillslope = [x[:-4] for x in id_hillslope]
-id_riverbank = glob.glob("D:/ARI_BCR_ALL/Scenarios/HalveSedimentbudget/Dashboard_items/Riverbank_img/*.jpg")
+id_riverbank = glob.glob("Riverbank_img/*.jpg")
 id_riverbank = [x[:-4] for x in id_riverbank]
-id_wetland = glob.glob("D:/ARI_BCR_ALL/Scenarios/HalveSedimentbudget/Dashboard_items/Wetland_img/*.jpg")
+id_wetland = glob.glob("Wetland_img/*.jpg")
 id_wetland = [x[:-4] for x in id_wetland]
-id_gully = glob.glob("D:/ARI_BCR_ALL/Scenarios/HalveSedimentbudget/Dashboard_items/Gully_img/*.jpg")
+id_gully = glob.glob("Gully_img/*.jpg")
 id_gully = [x[:-4] for x in id_gully]
 df = pd.read_csv('summary_500.csv')
 pd.set_option('display.max_colwidth', None)
