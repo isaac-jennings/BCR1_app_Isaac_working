@@ -1,4 +1,4 @@
-def normalize_objectives(solutions):
+mpledef normalize_objectives(solutions):
     num_objectives = len(solutions[0]['objectives'])
     min_objectives = [float('inf')] * num_objectives
     max_objectives = [-float('inf')] * num_objectives
@@ -60,7 +60,7 @@ df = df.set_index('objectives').apply(lambda row: {row.name: row.values.tolist()
 culled = adaptive_grid_culling(df, 250, 50)
 
 # Specify the CSV file path
-csv_file_path = 'culled.csv'
+csv_file_path = 'example_solution_reduction.csv'
 
 keys = culled[0].keys()
 
