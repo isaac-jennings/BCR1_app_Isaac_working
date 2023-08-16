@@ -1,4 +1,4 @@
-mpledef normalize_objectives(solutions):
+def normalize_objectives(solutions):
     num_objectives = len(solutions[0]['objectives'])
     min_objectives = [float('inf')] * num_objectives
     max_objectives = [-float('inf')] * num_objectives
