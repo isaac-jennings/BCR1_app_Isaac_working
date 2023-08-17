@@ -52,19 +52,38 @@ def adaptive_grid_culling(solutions, desired_size, num_divisions):
 # Number of divisions = number of divisions/segements for each dimension. For example, three dimensions will equate to 1000
 # cubes. Density is irrelavant per cube, as some cubes may be empty.
 # Reduction will focus on the densest cube, repeating reduction until desired size is reached.
-
 import pandas as pd
-import csv
 df = pd.read_csv('summary_500.csv')
 df = df.set_index('objectives').apply(lambda row: {row.name: row.values.tolist()}, axis=1).tolist()
+
 culled = adaptive_grid_culling(df, 250, 50)
 
-# Specify the CSV file path
-csv_file_path = 'example_solution_reduction.csv'
+# After culling
+culled_df = pd.DataFrame(culled)
 
-keys = culled[0].keys()
+# Expand the 'objectives' list into separate columns
+objectives_cols = culled_df['objectives'].apply(pd.Series)
+objectives_cols = objectives_cols.rename(columns = lambda x : 'objective_' + str(x+1))
 
-with open(csv_file_path, 'w', newline='') as output_file:
-    dict_writer = csv.DictWriter(output_file, fieldnames=keys)
-    dict_writer.writeheader()
-    dict_writer.writerows(culled)
+# Drop the original 'objectives' column and concatenate the new columns
+culled_df = pd.concat([culled_df.drop('objectives', axis=1), objectives_cols], axis=1)
+
+# Write to CSV
+culled_df.to_csv('example_solution_reduction.csv', index=False)
+
+# Re-wrangle output back to original
+
+# Re-import the output CSV
+df = pd.read_csv('example_solution_reduction.csv')
+
+# Drop the first two columns
+columns_to_drop = df.columns[:2]
+df = df.drop(columns=columns_to_drop)
+
+# Rename the remaining seven columns with placeholder names
+new_column_names = ['Solution_ID', 'Implementation_Cost', 'Opportunity_Cost', 
+                    'Particulate_Nitrogen', 'Sediment_Production', 'Total_Nitrogen', 'Dissolved_Nitrogen']
+df.columns = new_column_names
+
+# Output the modified dataframe, deliberately not overwriting here
+df.to_csv('modified_example_solution_reduction.csv', index=False)
